@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="stylesheet.css" />
+  <title>Términos y definiciones de ciberseguridad</title>
+
+</head>
+
+<body>
+	<div class="video">
+	<video controls autoplay width="640" height="480">
+		<source src="Módulo 1_Cybersecurity Terms.mp4" type="video/mp4" />
+	</video>
+</div>
+    <div class="preguntasportema"> 
+<fieldset>
+	<legend>Cuestionario Términos y definiciones de ciberseguridad</legend>
+	<div id="test">
+		<div class="cuestion">1. “Software que compromete el funcionamiento de un sistema al realizar una funci&otilde;n o proceso no autorizado”. La definici&otilde;n anterior corresponde a:</div>
+		<div class="respuestas">
+			<label>
+				<input type="radio" name="0" value="a">&nbsp;a : Ataque.&nbsp;</label>
+			<label>
+				<input type="radio" name="0" value="b">&nbsp;b : Troyano.&nbsp;</label>
+			<label>
+				<input type="radio" name="0" value="c">&nbsp;c : Malware.&nbsp;</label>
+		</div>
+		<div class="cuestion">2. La definici&otilde;n de cortafuegos corresponde a: </div>
+		<div class="respuestas">
+			<label>
+				<input type="radio" name="1" value="a">&nbsp;a :Control de una red de bots que, desde una ubicaci&otilde;n remota, proporciona direcci&otilde;n a las computadoras comprometidas en la red de bots.&nbsp;</label>
+			<label>
+				<input type="radio" name="1" value="b">&nbsp;b : Dispositivo de hardware/software o un programa de software que limita el tr&atilde;fico de la red de acuerdo con un conjunto de reglas sobre los accesos permitidos o autorizados.&nbsp;</label>
+			<label>
+				<input type="radio" name="1" value="c">&nbsp;c : Trabajo en las fases de desarrollo del ciclo de vida del desarrollo de sistemas.&nbsp;</label>
+		</div>
+		<div class="cuestion">3. La definici&otilde;n de confidencialidad corresponde a::</div>
+		<div class="respuestas">
+			<label>
+				<input type="radio" name="2" value="a">&nbsp;a : Convertir texto codificado a texto plano por medio de un c&otilde;digo.&nbsp;</label>
+			<label>
+				<input type="radio" name="2" value="b">&nbsp;b : El proceso de verificar la identidad u otros atributos de una entidad (usuario, proceso o dispositivo).&nbsp;</label>
+			<label>
+				<input type="radio" name="2" value="c">&nbsp;c : Preservar las restricciones autorizadas sobre el acceso y la divulgaci&otilde;n de la informaci&otilde;n.&nbsp;</label>
+		</div>
+	</div>
+	<button id="boton">Mostrar resultado</button>
+	<div id="resultado">
+		<br>
+	</div>
+	<script>
+		const contenedor = document.getElementById("test");
+		const botonRes = document.getElementById("boton");
+		const resultadoTest = document.getElementById("resultado");
+
+		const preguntas = [
+			{
+				pregunta: "“Software que compromete el funcionamiento de un sistema al realizar una función o proceso no autorizado”. La definición anterior corresponde a:",
+				respuestas:
+				{
+					a: "Ataque.",
+					b: "Troyano.",
+					c: "Malware.",
+				},
+				respuestaCorrecta: "c",
+			},
+			{
+				pregunta: "2. Seleccione un tipo de consecuencia de fuga de datos",
+				respuestas:
+				{
+					a: "Control de una red de bots que, desde una ubicación remota, proporciona dirección a las computadoras comprometidas en la red de bots.",
+					b: "Dispositivo de hardware/software o un programa de software que limita el tráfico de la red de acuerdo con un conjunto de reglas sobre qué acceso está permitido o no está permitido o autorizado.",
+					c: "Trabajo en las fases de desarrollo del ciclo de vida del desarrollo de sistemas.",
+				},
+				respuestaCorrecta: "b",
+			},
+			{
+				pregunta: "3. La definición de confidencialidad corresponde a:",
+				respuestas:
+				{
+					a: "Convertir texto codificado a texto plano por medio de un código.",
+					b: "El proceso de verificar la identidad u otros atributos de una entidad (usuario, proceso o dispositivo).",
+					c: "Preservar las restricciones autorizadas sobre el acceso y la divulgación de la información.",
+				},
+				respuestaCorrecta: "c",
+			},
+
+		];
+
+		function mostrarTest()
+		{
+			const preguntasYrespuestas = [];
+
+			preguntas.forEach((preguntaActual, numeroDePregunta) =>
+			{
+
+				const respuestas = [];
+
+				for (letraRespuesta in preguntaActual.respuestas)
+				{
+
+					respuestas.push(
+
+						`
+        <label>
+                  <input type="radio" name="${numeroDePregunta}" value="${letraRespuesta}" />
+                  ${letraRespuesta} : ${preguntaActual.respuestas[letraRespuesta]} <br>
+              </label>` 
+					);
+                   
+				}
+
+				preguntasYrespuestas.push(
+					`
+      <div class="cuestion">${preguntaActual.pregunta}</div>
+      
+          <div class="respuestas"> ${respuestas.join("")} </div>
+          `
+				);
+			});
+
+			contenedor.innerHTML = preguntasYrespuestas.join("");
+		}
+
+		mostrarTest();
+
+		function mostrarResultado()
+		{
+			const respuestas = contenedor.querySelectorAll(".respuestas");
+			let respuestasCorrectas = 0;
+
+			preguntas.forEach((preguntaActual, numeroDePregunta) =>
+			{
+				const todasLasRespuestas = respuestas[numeroDePregunta];
+				const checkboxRespuestas = `input[name='${numeroDePregunta}']:checked`;
+				const respuestaElegida = (
+					todasLasRespuestas.querySelector(checkboxRespuestas) ||
+					{}
+				).value;
+
+				if (respuestaElegida === preguntaActual.respuestaCorrecta)
+				{
+					respuestasCorrectas++;
+
+					respuestas[numeroDePregunta].style.color = "blue";
+				}
+				else
+				{
+					respuestas[numeroDePregunta].style.color = "red";
+				}
+			});
+
+			resultadoTest.innerHTML =
+				"Usted ha acertado " +
+				respuestasCorrectas +
+				" preguntas de un total de " +
+				preguntas.length;
+		}
+
+		botonRes.addEventListener("click", mostrarResultado);
+
+	</script>
+       </div>
+
+</fieldset>
+</body>
+</html>
